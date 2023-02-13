@@ -2,7 +2,7 @@
 {
     public interface ICatalogTypeService
     {
-        Task<ItemsResponse<CatalogTypeDto>> GetCatalogTypesAsync();
+        Task<ItemsResponse<CatalogTypeDto>?> GetCatalogTypesAsync();
 
         Task<int?> AddAsync(string type);
 

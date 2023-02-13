@@ -19,13 +19,13 @@
             _loggerService = loggerService;
         }
 
-        public async Task<ItemsResponse<CatalogTypeDto>> GetCatalogTypesAsync()
+        public async Task<ItemsResponse<CatalogTypeDto>?> GetCatalogTypesAsync()
         {
             return await ExecuteSafeAsync(async () =>
             {
                 var result = await _catalogTypeRepository.GetAsync();
 
-                if (result.Data.Count() == 0)
+                if (result == null)
                 {
                     _loggerService.LogWarning("No catalog types in database");
                     return null;

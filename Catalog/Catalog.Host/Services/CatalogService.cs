@@ -73,7 +73,7 @@
             {
                 var result = await _catalogItemRepository.GetByTypeAsync(type);
 
-                if (result.Data.Count() == 0)
+                if (result == null)
                 {
                     _loggerService.LogWarning($"Not founded catalog items with type = {type}");
                     return null;
