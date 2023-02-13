@@ -13,6 +13,14 @@ services:
       - postgres
     ports:
       - 5000:5000
+  nginx:
+    image: nginx
+    container_name: lde.nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./Proxy/gateway/nginx/conf.d:/etc/nginx/conf.d
+      - ./Proxy/assets:/var/www/assets
   pgadmin4:
     image: dpage/pgadmin4
     container_name: lde.pgadmin4
