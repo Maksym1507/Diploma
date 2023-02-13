@@ -3,21 +3,26 @@
 public class CatalogItemService : BaseDataService<ApplicationDbContext>, ICatalogItemService
 {
     private readonly ICatalogItemRepository _catalogItemRepository;
+    private readonly ILogger<CatalogItemService> _loggerService;
 
     public CatalogItemService(
         IDbContextWrapper<ApplicationDbContext> dbContextWrapper,
         ILogger<BaseDataService<ApplicationDbContext>> logger,
-        ICatalogItemRepository catalogItemRepository)
+        ICatalogItemRepository catalogItemRepository,
+        ILogger<CatalogItemService> loggerService)
         : base(dbContextWrapper, logger)
     {
         _catalogItemRepository = catalogItemRepository;
+        _loggerService = loggerService;
     }
 
     public async Task<int?> AddAsync(string title, string description, decimal price, double weight, int availableStock, int catalogTypeId, string pictureFileName)
     {
         return await ExecuteSafeAsync(async () =>
         {
-            return await _catalogItemRepository.AddAsync(title, description, price, weight, availableStock, catalogTypeId, pictureFileName);
+            var id = await _catalogItemRepository.AddAsync(title, description, price, weight, availableStock, catalogTypeId, pictureFileName);
+            _loggerService.LogInformation($"Created catalog item with Id = {id}");
+            return id;
         });
     }
 
@@ -29,6 +34,7 @@ public class CatalogItemService : BaseDataService<ApplicationDbContext>, ICatalo
 
             if (itemToUpdate == null)
             {
+                _loggerService.LogWarning($"Not founded catalog item with Id = {id}");
                 return false;
             }
 
@@ -40,7 +46,9 @@ public class CatalogItemService : BaseDataService<ApplicationDbContext>, ICatalo
             itemToUpdate.CatalogTypeId = catalogTypeId;
             itemToUpdate.PictureFileName = pictureFileName;
 
-            return await _catalogItemRepository.UpdateAsync(itemToUpdate);
+            var isUpdated = await _catalogItemRepository.UpdateAsync(itemToUpdate);
+            _loggerService.LogInformation($"Updated catalog item with Id = {id}");
+            return isUpdated;
         });
     }
 
@@ -52,10 +60,13 @@ public class CatalogItemService : BaseDataService<ApplicationDbContext>, ICatalo
 
             if (itemToDelete == null)
             {
+                _loggerService.LogWarning($"Not founded catalog item with Id = {id}");
                 return false;
             }
 
-            return await _catalogItemRepository.DeleteAsync(itemToDelete);
+            var isDeleted = await _catalogItemRepository.DeleteAsync(itemToDelete);
+            _loggerService.LogInformation($"Removed catalog item with Id = {id}");
+            return isDeleted;
         });
     }
 }

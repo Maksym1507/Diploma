@@ -4,16 +4,19 @@
     {
         private readonly ICatalogTypeRepository _catalogTypeRepository;
         private readonly IMapper _mapper;
+        private readonly ILogger<CatalogTypeService> _loggerService;
 
         public CatalogTypeService(
             IDbContextWrapper<ApplicationDbContext> dbContextWrapper,
             ILogger<BaseDataService<ApplicationDbContext>> logger,
             ICatalogTypeRepository catalogTypeRepository,
-            IMapper mapper)
+            IMapper mapper,
+            ILogger<CatalogTypeService> loggerService)
             : base(dbContextWrapper, logger)
         {
             _catalogTypeRepository = catalogTypeRepository;
             _mapper = mapper;
+            _loggerService = loggerService;
         }
 
         public async Task<ItemsResponse<CatalogTypeDto>> GetCatalogTypesAsync()
@@ -24,7 +27,8 @@
 
                 if (result.Data.Count() == 0)
                 {
-                    throw new Exception($"Types not found");
+                    _loggerService.LogWarning("No catalog types in database");
+                    return null;
                 }
 
                 return new ItemsResponse<CatalogTypeDto>()
@@ -38,7 +42,9 @@
         {
             return await ExecuteSafeAsync(async () =>
             {
-                return await _catalogTypeRepository.AddAsync(type);
+                var id = await _catalogTypeRepository.AddAsync(type);
+                _loggerService.LogInformation($"Created catalog type with Id = {id}");
+                return id;
             });
         }
 
@@ -50,12 +56,15 @@
 
                 if (typeToUpdate == null)
                 {
+                    _loggerService.LogWarning($"Not founded catalog type with Id = {id}");
                     return false;
                 }
 
                 typeToUpdate.Type = type;
 
-                return await _catalogTypeRepository.UpdateAsync(typeToUpdate);
+                var isUpdated = await _catalogTypeRepository.UpdateAsync(typeToUpdate);
+                _loggerService.LogInformation($"Updated catalog type with Id = {id}");
+                return isUpdated;
             });
         }
 
@@ -67,10 +76,13 @@
 
                 if (typeToDelete == null)
                 {
+                    _loggerService.LogWarning($"Not founded catalog type with Id = {id}");
                     return false;
                 }
 
-                return await _catalogTypeRepository.DeleteAsync(typeToDelete);
+                var isDeleted = await _catalogTypeRepository.DeleteAsync(typeToDelete);
+                _loggerService.LogInformation($"Removed catalog type with Id = {id}");
+                return isDeleted;
             });
         }
     }

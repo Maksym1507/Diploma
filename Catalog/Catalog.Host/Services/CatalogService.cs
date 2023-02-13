@@ -4,16 +4,19 @@
     {
         private readonly ICatalogItemRepository _catalogItemRepository;
         private readonly IMapper _mapper;
+        private readonly ILogger<CatalogService> _loggerService;
 
         public CatalogService(
             IDbContextWrapper<ApplicationDbContext> dbContextWrapper,
             ILogger<BaseDataService<ApplicationDbContext>> logger,
             ICatalogItemRepository catalogItemRepository,
-            IMapper mapper)
+            IMapper mapper,
+            ILogger<CatalogService> loggerService)
             : base(dbContextWrapper, logger)
         {
             _catalogItemRepository = catalogItemRepository;
             _mapper = mapper;
+            _loggerService = loggerService;
         }
 
         public async Task<PaginatedItemsResponse<CatalogItemDto>?> GetCatalogItemsAsync(int pageSize, int pageIndex, Dictionary<CatalogTypeFilter, int>? filters)
@@ -32,8 +35,9 @@
 
                 var result = await _catalogItemRepository.GetByPageAsync(pageIndex, pageSize, typeFilter);
 
-                if (result == null)
+                if (result.TotalCount == 0)
                 {
+                    _loggerService.LogWarning($"Not founded catalog items on page = {pageIndex}, with page size = {pageSize} and with type = {typeFilter}");
                     return null;
                 }
 
@@ -55,6 +59,7 @@
 
                 if (result == null)
                 {
+                    _loggerService.LogWarning($"Not founded catalog item with Id = {id}");
                     return null;
                 }
 
@@ -68,8 +73,9 @@
             {
                 var result = await _catalogItemRepository.GetByTypeAsync(type);
 
-                if (result == null)
+                if (result.Data.Count() == 0)
                 {
+                    _loggerService.LogWarning($"Not founded catalog items with type = {type}");
                     return null;
                 }
 
