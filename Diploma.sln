@@ -14,6 +14,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		settings.ruleset = settings.ruleset
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{F8B5AE1F-CCB5-4E00-B3A3-632FA6CD9068}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure\Infrastructure.csproj", "{F8E5C821-6A32-46F3-9028-0ECA80C4BE8D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,12 +28,17 @@ Global
 		{AD346CF9-8A71-45E3-B7ED-30804F372CD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD346CF9-8A71-45E3-B7ED-30804F372CD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD346CF9-8A71-45E3-B7ED-30804F372CD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8E5C821-6A32-46F3-9028-0ECA80C4BE8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8E5C821-6A32-46F3-9028-0ECA80C4BE8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8E5C821-6A32-46F3-9028-0ECA80C4BE8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8E5C821-6A32-46F3-9028-0ECA80C4BE8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{AD346CF9-8A71-45E3-B7ED-30804F372CD8} = {E954B0BC-41B7-4FD0-8BF1-3EEC8412919B}
+		{F8E5C821-6A32-46F3-9028-0ECA80C4BE8D} = {F8B5AE1F-CCB5-4E00-B3A3-632FA6CD9068}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {95EC6A8D-C78E-4E1B-9458-050611DAD1DB}
