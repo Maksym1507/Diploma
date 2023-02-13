@@ -35,7 +35,7 @@
 
                 var result = await _catalogItemRepository.GetByPageAsync(pageIndex, pageSize, typeFilter);
 
-                if (result.TotalCount == 0)
+                if (result.Data.Count() == 0)
                 {
                     _loggerService.LogWarning($"Not founded catalog items on page = {pageIndex}, with page size = {pageSize} and with type = {typeFilter}");
                     return null;
