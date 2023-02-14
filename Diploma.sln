@@ -53,6 +53,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.UnitTests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.UnitTests", "Catalog\Catalog.UnitTests\Catalog.UnitTests.csproj", "{A500473D-D36E-42BC-8179-1C214A07DDE1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityServer", "IdentityServer", "{705593F8-2B36-4A0B-908F-523A4B0FCAA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer", "IdentityServer\IdentityServer\IdentityServer.csproj", "{2C19BC82-98EB-43A6-86DF-8968AF2990D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +79,10 @@ Global
 		{A500473D-D36E-42BC-8179-1C214A07DDE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A500473D-D36E-42BC-8179-1C214A07DDE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A500473D-D36E-42BC-8179-1C214A07DDE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C19BC82-98EB-43A6-86DF-8968AF2990D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C19BC82-98EB-43A6-86DF-8968AF2990D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C19BC82-98EB-43A6-86DF-8968AF2990D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C19BC82-98EB-43A6-86DF-8968AF2990D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,6 +97,7 @@ Global
 		{1267E6FC-20D3-43DE-9B4D-84E7998C04B6} = {C619FACC-21DB-42DC-B8A1-930B44621716}
 		{69519A11-7860-426A-9D5A-485F75CC5144} = {F8B5AE1F-CCB5-4E00-B3A3-632FA6CD9068}
 		{A500473D-D36E-42BC-8179-1C214A07DDE1} = {E954B0BC-41B7-4FD0-8BF1-3EEC8412919B}
+		{2C19BC82-98EB-43A6-86DF-8968AF2990D2} = {705593F8-2B36-4A0B-908F-523A4B0FCAA7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {95EC6A8D-C78E-4E1B-9458-050611DAD1DB}

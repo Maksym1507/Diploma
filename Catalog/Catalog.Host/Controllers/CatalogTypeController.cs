@@ -1,6 +1,11 @@
-﻿namespace Catalog.Host.Controllers
+﻿using Infrastructure.Identity;
+using Microsoft.AspNetCore.Authorization;
+
+namespace Catalog.Host.Controllers
 {
     [ApiController]
+    [Authorize(Policy = AuthPolicy.AllowClientPolicy)]
+    [Scope("catalog.catalogtype")]
     [Route(ComponentDefaults.DefaultRoute)]
     public class CatalogTypeController : ControllerBase
     {
