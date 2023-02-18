@@ -81,17 +81,34 @@ namespace Catalog.UnitTests.Services
             // arrange
             var testPageIndex = 1000;
             var testPageSize = 10000;
+            var testTotalCount = 0;
+
+            var testPaginatedItems = new PaginatedItems<CatalogItem>
+            {
+                TotalCount = testTotalCount,
+                Data = new List<CatalogItem>()
+            };
 
             _catalogItemRepository.Setup(s => s.GetByPageAsync(
                 It.Is<int>(i => i == testPageIndex),
                 It.Is<int>(i => i == testPageSize),
-                It.IsAny<int?>())).Returns((Func<PaginatedItemsResponse<CatalogItemDto>>)null!);
+                It.IsAny<int?>())).ReturnsAsync(testPaginatedItems);
 
             // act
             var result = await _catalogService.GetCatalogItemsAsync(testPageSize, testPageIndex, null);
 
             // assert
             result.Should().BeNull();
+
+            _logger.Verify(
+                x => x.Log(
+                    LogLevel.Warning,
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((o, t) => o.ToString()!
+                    .Contains($"Not founded catalog items on page = {testPageIndex}, with page size = {testPageSize} and with type = {null}")),
+                    It.IsAny<Exception>(),
+                    It.IsAny<Func<It.IsAnyType, Exception, string>>()!),
+                Times.Once);
         }
 
         [Fact]
@@ -121,13 +138,23 @@ namespace Catalog.UnitTests.Services
             var testId = 190;
 
             _catalogItemRepository.Setup(s => s.GetByIdAsync(
-                It.Is<int>(i => i == testId))).Returns((Func<CatalogItemDto>)null!);
+                It.Is<int>(i => i == testId))).ReturnsAsync((Func<CatalogItem>)null!);
 
             // act
             var result = await _catalogService.GetCatalogItemByIdAsync(testId);
 
             // assert
             result.Should().BeNull();
+
+            _logger.Verify(
+                x => x.Log(
+                    LogLevel.Warning,
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((o, t) => o.ToString()!
+                        .Contains($"Not founded catalog item with Id = {testId}")),
+                    It.IsAny<Exception>(),
+                    It.IsAny<Func<It.IsAnyType, Exception, string>>()!),
+                Times.Once);
         }
 
         [Fact]
@@ -168,13 +195,23 @@ namespace Catalog.UnitTests.Services
             var testType = "TestType";
 
             _catalogItemRepository.Setup(s => s.GetByTypeAsync(
-                It.Is<string>(i => i == testType))).Returns((Func<Items<CatalogItemDto>>)null!);
+                It.Is<string>(i => i == testType))).ReturnsAsync((Func<Items<CatalogItem>>)null!);
 
             // act
             var result = await _catalogService.GetCatalogItemsByTypeAsync(testType);
 
             // assert
             result.Should().BeNull();
+
+            _logger.Verify(
+                x => x.Log(
+                    LogLevel.Warning,
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((o, t) => o.ToString()!
+                        .Contains($"Not founded catalog items with type = {testType}")),
+                    It.IsAny<Exception>(),
+                    It.IsAny<Func<It.IsAnyType, Exception, string>>()!),
+                Times.Once);
         }
     }
 }

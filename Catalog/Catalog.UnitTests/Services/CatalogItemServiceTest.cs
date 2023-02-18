@@ -171,6 +171,16 @@ namespace Catalog.UnitTests.Services
 
             // assert
             result.Should().Be(testResult);
+
+            _logger.Verify(
+                x => x.Log(
+                    LogLevel.Warning,
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((o, t) => o.ToString()!
+                        .Contains($"Not founded catalog item with Id = {testId}")),
+                    It.IsAny<Exception>(),
+                    It.IsAny<Func<It.IsAnyType, Exception, string>>()!),
+                Times.Once);
         }
 
         [Fact]
@@ -221,6 +231,16 @@ namespace Catalog.UnitTests.Services
 
             // assert
             result.Should().Be(testResult);
+
+            _logger.Verify(
+                x => x.Log(
+                    LogLevel.Warning,
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((o, t) => o.ToString()!
+                        .Contains($"Not founded catalog item with Id = {testId}")),
+                    It.IsAny<Exception>(),
+                    It.IsAny<Func<It.IsAnyType, Exception, string>>()!),
+                Times.Once);
         }
     }
 }

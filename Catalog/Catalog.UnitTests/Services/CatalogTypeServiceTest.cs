@@ -120,13 +120,23 @@ namespace Catalog.UnitTests.Services
         public async Task GetCatalogTypesAsync_Failed()
         {
             // arrange
-            _catalogTypeRepository.Setup(s => s.GetAsync()).Returns((Func<Items<CatalogType>>)null!);
+            _catalogTypeRepository.Setup(s => s.GetAsync()).ReturnsAsync((Func<Items<CatalogType>>)null!);
 
             // act
             var result = await _catalogTypeService.GetCatalogTypesAsync();
 
             // assert
             result.Should().BeNull();
+
+            _logger.Verify(
+                x => x.Log(
+                    LogLevel.Warning,
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((o, t) => o.ToString()!
+                        .Contains($"No catalog types in database")),
+                    It.IsAny<Exception>(),
+                    It.IsAny<Func<It.IsAnyType, Exception, string>>()!),
+                Times.Once);
         }
 
         [Fact]
@@ -170,7 +180,7 @@ namespace Catalog.UnitTests.Services
             bool testResult = false;
 
             _catalogTypeRepository.Setup(s => s.GetByIdAsync(
-                It.Is<int>(i => i == testId))).Returns((Func<CatalogType>)null);
+                It.Is<int>(i => i == testId))).ReturnsAsync((Func<CatalogType>)null!);
 
             _catalogTypeRepository.Setup(s => s.UpdateAsync(
                 It.Is<CatalogType>(i => i == _testTypeForUpdateDeleteSuccess))).ReturnsAsync(testResult);
@@ -180,6 +190,16 @@ namespace Catalog.UnitTests.Services
 
             // assert
             result.Should().Be(result);
+
+            _logger.Verify(
+                x => x.Log(
+                    LogLevel.Warning,
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((o, t) => o.ToString()!
+                        .Contains($"Not founded catalog type with Id = {testId}")),
+                    It.IsAny<Exception>(),
+                    It.IsAny<Func<It.IsAnyType, Exception, string>>()!),
+                Times.Once);
         }
 
         [Fact]
@@ -220,7 +240,7 @@ namespace Catalog.UnitTests.Services
             bool testResult = false;
 
             _catalogTypeRepository.Setup(s => s.GetByIdAsync(
-                It.Is<int>(i => i == testId))).Returns((Func<CatalogType>)null!);
+                It.Is<int>(i => i == testId))).ReturnsAsync((Func<CatalogType>)null!);
 
             _catalogTypeRepository.Setup(s => s.DeleteAsync(
                 It.Is<CatalogType>(i => i == _testTypeForUpdateDeleteSuccess))).ReturnsAsync(testResult);
@@ -230,6 +250,16 @@ namespace Catalog.UnitTests.Services
 
             // assert
             result.Should().Be(testResult);
+
+            _logger.Verify(
+                x => x.Log(
+                    LogLevel.Warning,
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((o, t) => o.ToString()!
+                        .Contains($"Not founded catalog type with Id = {testId}")),
+                    It.IsAny<Exception>(),
+                    It.IsAny<Func<It.IsAnyType, Exception, string>>()!),
+                Times.Once);
         }
     }
 }
