@@ -48,10 +48,10 @@ namespace Infrastructure.UnitTests
                 x => x.Log(
                     LogLevel.Error,
                     It.IsAny<EventId>(),
-                    It.Is<It.IsAnyType>((o, t) => o.ToString()!
+                    It.Is<It.IsAnyType>((o, t) => o.ToString() !
                         .Contains($"transaction is rollbacked")),
                     It.IsAny<Exception>(),
-                    It.IsAny<Func<It.IsAnyType, Exception, string>>()!),
+                    It.IsAny<Func<It.IsAnyType, Exception, string>>() !),
                 Times.Once);
         }
     }

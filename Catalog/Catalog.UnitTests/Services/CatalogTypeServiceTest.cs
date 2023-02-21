@@ -55,10 +55,10 @@ namespace Catalog.UnitTests.Services
                 x => x.Log(
                     LogLevel.Information,
                     It.IsAny<EventId>(),
-                    It.Is<It.IsAnyType>((o, t) => o.ToString()!
+                    It.Is<It.IsAnyType>((o, t) => o.ToString() !
                         .Contains($"Created catalog type with Id = {result.Value}")),
                     It.IsAny<Exception>(),
-                    It.IsAny<Func<It.IsAnyType, Exception, string>>()!),
+                    It.IsAny<Func<It.IsAnyType, Exception, string>>() !),
                 Times.Once);
         }
 
@@ -132,10 +132,10 @@ namespace Catalog.UnitTests.Services
                 x => x.Log(
                     LogLevel.Warning,
                     It.IsAny<EventId>(),
-                    It.Is<It.IsAnyType>((o, t) => o.ToString()!
+                    It.Is<It.IsAnyType>((o, t) => o.ToString() !
                         .Contains($"No catalog types in database")),
                     It.IsAny<Exception>(),
-                    It.IsAny<Func<It.IsAnyType, Exception, string>>()!),
+                    It.IsAny<Func<It.IsAnyType, Exception, string>>() !),
                 Times.Once);
         }
 
@@ -165,10 +165,10 @@ namespace Catalog.UnitTests.Services
                 x => x.Log(
                     LogLevel.Information,
                     It.IsAny<EventId>(),
-                    It.Is<It.IsAnyType>((o, t) => o.ToString()!
+                    It.Is<It.IsAnyType>((o, t) => o.ToString() !
                         .Contains($"Updated catalog type with Id = {testId}")),
                     It.IsAny<Exception>(),
-                    It.IsAny<Func<It.IsAnyType, Exception, string>>()!),
+                    It.IsAny<Func<It.IsAnyType, Exception, string>>() !),
                 Times.Once);
         }
 
@@ -195,10 +195,10 @@ namespace Catalog.UnitTests.Services
                 x => x.Log(
                     LogLevel.Warning,
                     It.IsAny<EventId>(),
-                    It.Is<It.IsAnyType>((o, t) => o.ToString()!
+                    It.Is<It.IsAnyType>((o, t) => o.ToString() !
                         .Contains($"Not founded catalog type with Id = {testId}")),
                     It.IsAny<Exception>(),
-                    It.IsAny<Func<It.IsAnyType, Exception, string>>()!),
+                    It.IsAny<Func<It.IsAnyType, Exception, string>>() !),
                 Times.Once);
         }
 
@@ -225,10 +225,10 @@ namespace Catalog.UnitTests.Services
                 x => x.Log(
                     LogLevel.Information,
                     It.IsAny<EventId>(),
-                    It.Is<It.IsAnyType>((o, t) => o.ToString()!
+                    It.Is<It.IsAnyType>((o, t) => o.ToString() !
                         .Contains($"Removed catalog type with Id = {testId}")),
                     It.IsAny<Exception>(),
-                    It.IsAny<Func<It.IsAnyType, Exception, string>>()!),
+                    It.IsAny<Func<It.IsAnyType, Exception, string>>() !),
                 Times.Once);
         }
 
@@ -255,10 +255,10 @@ namespace Catalog.UnitTests.Services
                 x => x.Log(
                     LogLevel.Warning,
                     It.IsAny<EventId>(),
-                    It.Is<It.IsAnyType>((o, t) => o.ToString()!
+                    It.Is<It.IsAnyType>((o, t) => o.ToString() !
                         .Contains($"Not founded catalog type with Id = {testId}")),
                     It.IsAny<Exception>(),
-                    It.IsAny<Func<It.IsAnyType, Exception, string>>()!),
+                    It.IsAny<Func<It.IsAnyType, Exception, string>>() !),
                 Times.Once);
         }
     }

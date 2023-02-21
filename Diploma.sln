@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Host", "Catalog\Catalog.Host\Catalog.Host.csproj", "{AD346CF9-8A71-45E3-B7ED-30804F372CD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.Host", "Catalog\Catalog.Host\Catalog.Host.csproj", "{AD346CF9-8A71-45E3-B7ED-30804F372CD8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{E954B0BC-41B7-4FD0-8BF1-3EEC8412919B}"
 EndProject
@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{F8B5AE1F-CCB5-4E00-B3A3-632FA6CD9068}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure\Infrastructure.csproj", "{F8E5C821-6A32-46F3-9028-0ECA80C4BE8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure\Infrastructure.csproj", "{F8E5C821-6A32-46F3-9028-0ECA80C4BE8D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Proxy", "Proxy", "{4DFA6CD4-429B-4F59-9735-9E2EE0284A77}"
 EndProject
@@ -49,13 +49,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "conf.d", "conf.d", "{1267E6
 		Proxy\gateway\nginx\conf.d\default.conf = Proxy\gateway\nginx\conf.d\default.conf
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.UnitTests", "Infrastructure\Infrastructure.UnitTests\Infrastructure.UnitTests.csproj", "{69519A11-7860-426A-9D5A-485F75CC5144}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.UnitTests", "Infrastructure\Infrastructure.UnitTests\Infrastructure.UnitTests.csproj", "{69519A11-7860-426A-9D5A-485F75CC5144}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.UnitTests", "Catalog\Catalog.UnitTests\Catalog.UnitTests.csproj", "{A500473D-D36E-42BC-8179-1C214A07DDE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.UnitTests", "Catalog\Catalog.UnitTests\Catalog.UnitTests.csproj", "{A500473D-D36E-42BC-8179-1C214A07DDE1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityServer", "IdentityServer", "{705593F8-2B36-4A0B-908F-523A4B0FCAA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer", "IdentityServer\IdentityServer\IdentityServer.csproj", "{2C19BC82-98EB-43A6-86DF-8968AF2990D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "IdentityServer\IdentityServer\IdentityServer.csproj", "{2C19BC82-98EB-43A6-86DF-8968AF2990D2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basket", "Basket", "{476EFFD3-58C3-4531-A164-54B0CDC9E17C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket.Host", "Basket\Basket.Host\Basket.Host.csproj", "{60C9F224-57F1-4153-A1C1-3910B1F3EDCD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +87,10 @@ Global
 		{2C19BC82-98EB-43A6-86DF-8968AF2990D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C19BC82-98EB-43A6-86DF-8968AF2990D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C19BC82-98EB-43A6-86DF-8968AF2990D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60C9F224-57F1-4153-A1C1-3910B1F3EDCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60C9F224-57F1-4153-A1C1-3910B1F3EDCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60C9F224-57F1-4153-A1C1-3910B1F3EDCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60C9F224-57F1-4153-A1C1-3910B1F3EDCD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,6 +106,7 @@ Global
 		{69519A11-7860-426A-9D5A-485F75CC5144} = {F8B5AE1F-CCB5-4E00-B3A3-632FA6CD9068}
 		{A500473D-D36E-42BC-8179-1C214A07DDE1} = {E954B0BC-41B7-4FD0-8BF1-3EEC8412919B}
 		{2C19BC82-98EB-43A6-86DF-8968AF2990D2} = {705593F8-2B36-4A0B-908F-523A4B0FCAA7}
+		{60C9F224-57F1-4153-A1C1-3910B1F3EDCD} = {476EFFD3-58C3-4531-A164-54B0CDC9E17C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {95EC6A8D-C78E-4E1B-9458-050611DAD1DB}

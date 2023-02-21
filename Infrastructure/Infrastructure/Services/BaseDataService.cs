@@ -53,7 +53,7 @@
                 _logger.LogError(ex, $"transaction is rollbacked");
             }
 
-            return default(TResult)!;
+            return default(TResult) !;
         }
     }
 }

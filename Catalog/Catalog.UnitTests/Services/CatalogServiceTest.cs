@@ -104,10 +104,10 @@ namespace Catalog.UnitTests.Services
                 x => x.Log(
                     LogLevel.Warning,
                     It.IsAny<EventId>(),
-                    It.Is<It.IsAnyType>((o, t) => o.ToString()!
+                    It.Is<It.IsAnyType>((o, t) => o.ToString() !
                     .Contains($"Not founded catalog items on page = {testPageIndex}, with page size = {testPageSize} and with type = {null}")),
                     It.IsAny<Exception>(),
-                    It.IsAny<Func<It.IsAnyType, Exception, string>>()!),
+                    It.IsAny<Func<It.IsAnyType, Exception, string>>() !),
                 Times.Once);
         }
 
@@ -150,10 +150,10 @@ namespace Catalog.UnitTests.Services
                 x => x.Log(
                     LogLevel.Warning,
                     It.IsAny<EventId>(),
-                    It.Is<It.IsAnyType>((o, t) => o.ToString()!
+                    It.Is<It.IsAnyType>((o, t) => o.ToString() !
                         .Contains($"Not founded catalog item with Id = {testId}")),
                     It.IsAny<Exception>(),
-                    It.IsAny<Func<It.IsAnyType, Exception, string>>()!),
+                    It.IsAny<Func<It.IsAnyType, Exception, string>>() !),
                 Times.Once);
         }
 
@@ -207,10 +207,10 @@ namespace Catalog.UnitTests.Services
                 x => x.Log(
                     LogLevel.Warning,
                     It.IsAny<EventId>(),
-                    It.Is<It.IsAnyType>((o, t) => o.ToString()!
+                    It.Is<It.IsAnyType>((o, t) => o.ToString() !
                         .Contains($"Not founded catalog items with type = {testType}")),
                     It.IsAny<Exception>(),
-                    It.IsAny<Func<It.IsAnyType, Exception, string>>()!),
+                    It.IsAny<Func<It.IsAnyType, Exception, string>>() !),
                 Times.Once);
         }
     }
