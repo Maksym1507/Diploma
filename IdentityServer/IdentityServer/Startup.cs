@@ -15,6 +15,17 @@ namespace IdentityServer
 
             services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1);
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy(
+                    "CorsPolicy",
+                    builder => builder
+                        .SetIsOriginAllowed((host) => true)
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials());
+            });
+
             services.AddIdentityServer()
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApis())
@@ -30,7 +41,9 @@ namespace IdentityServer
             app.UseIdentityServer();
             app.UseCookiePolicy(new CookiePolicyOptions { MinimumSameSitePolicy = SameSiteMode.Strict });
             app.UseStaticFiles();
+
             app.UseRouting();
+            app.UseCors("CorsPolicy");
 
             app.UseAuthentication();
             app.UseAuthorization();

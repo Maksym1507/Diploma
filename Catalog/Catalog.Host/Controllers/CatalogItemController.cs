@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 namespace Catalog.Host.Controllers
 {
     [ApiController]
-    [Authorize(Policy = AuthPolicy.AllowClientPolicy)]
     [Scope("catalog.catalogitem")]
+    [Authorize(Policy = AuthPolicy.AllowClientPolicy)]
     [Route(ComponentDefaults.DefaultRoute)]
     public class CatalogItemController : ControllerBase
     {

@@ -26,7 +26,7 @@ namespace Basket.Host.Services
         public Task AddOrUpdateAsync<T>(string key, T value)
         => AddOrUpdateInternalAsync(key, value);
 
-        public async Task<T> GetAsync<T>(string key)
+        public async Task<T?> GetAsync<T>(string key)
         {
             var redis = GetRedisDatabase();
 

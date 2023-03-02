@@ -31,6 +31,22 @@ namespace IdentityServer
                         new Scope("catalog.catalogitem"),
                         new Scope("catalog.catalogtype")
                     }
+                },
+                new ApiResource("basket")
+                {
+                    Scopes = new List<Scope>
+                    {
+                        new Scope("basket.basketbff"),
+                        new Scope("basket.bf"),
+                    }
+                },
+                new ApiResource("order")
+                {
+                    Scopes = new List<Scope>
+                    {
+                        new Scope("order.orderbff"),
+                        new Scope("order.of")
+                    }
                 }
             };
         }
@@ -39,6 +55,32 @@ namespace IdentityServer
         {
             return new[]
             {
+                new Client
+                {
+                    ClientId = "client_pkce",
+                    ClientName = "React PKCE Client",
+                    ClientSecrets = { new Secret("secret".Sha256()) },
+                    AllowedGrantTypes = GrantTypes.Code,
+                    AllowAccessTokensViaBrowser = true,
+                    RequireConsent = false,
+                    RequirePkce = true,
+
+                    RedirectUris = { $"{configuration["MvcUrl"]}/callback" },
+                    PostLogoutRedirectUris = { $"{configuration["MvcUrl"]}" },
+                    AllowedCorsOrigins =
+                    {
+                        $"{configuration["MvcUrl"]}",
+                        "http://localhost:3000"
+                    },
+
+                    AllowedScopes =
+                    {
+                        "openid",
+                        "profile",
+                        "basket.basketbff",
+                        "order.orderbff"
+                    },
+                },
                 new Client
                 {
                     ClientId = "catalog",
@@ -67,6 +109,17 @@ namespace IdentityServer
                 },
                 new Client
                 {
+                    ClientId = "basket",
+
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+
+                    ClientSecrets =
+                    {
+                        new Secret("secret".Sha256())
+                    }
+                },
+                new Client
+                {
                     ClientId = "basketswaggerui",
                     ClientName = "Basket Swagger UI",
                     AllowedGrantTypes = GrantTypes.Implicit,
@@ -77,7 +130,34 @@ namespace IdentityServer
 
                     AllowedScopes =
                     {
-                        "website"
+                        "basket.basketbff",
+                        "order.orderbff"
+                    }
+                },
+                new Client
+                {
+                    ClientId = "order",
+
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+
+                    ClientSecrets =
+                    {
+                        new Secret("secret".Sha256())
+                    },
+                },
+                new Client
+                {
+                    ClientId = "orderswaggerui",
+                    ClientName = "Order Swagger UI",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+
+                    RedirectUris = { $"{configuration["OrderApi"]}/swagger/oauth2-redirect.html" },
+                    PostLogoutRedirectUris = { $"{configuration["OrderApi"]}/swagger/" },
+
+                    AllowedScopes =
+                    {
+                        "order.orderbff"
                     }
                 },
             };
