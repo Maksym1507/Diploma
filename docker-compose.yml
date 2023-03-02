@@ -47,32 +47,13 @@ services:
       - postgres
     ports:
       - 5004:5004
-  #web.mvc:
-  #  container_name: lde.web.mvc
-  #  build:
-  #    context: .
-  #    dockerfile: Web/MVC/Dockerfile
-  #  environment:
-  #    - ASPNETCORE_ENVIRONMENT=Development
-  #    - ASPNETCORE_URLS=http://+:5001
-  #    - CatalogUrl=http://www.alevelwebsite.com:5000/api/v1/catalogbff
-  #    - OrderUrl=http://www.alevelwebsite.com:5004/api/v1/orderbff
-  #    - Authorization__Authority=http://www.alevelwebsite.com:5002
-  #    - IdentityUrl=http://www.alevelwebsite.com:5002
-  #    - CallBackUrl=http://www.alevelwebsite.com/
-  #    - RedirectUri=http://www.alevelwebsite.com/signin-oidc
-  #  depends_on:
-  #    - catalog.api
-  #    - identityserver
-  #  ports:
-  #    - 5001:5001
-  #web.react:
-  #  container_name: lde.web.react
-  #  build: 
-  #    context: ./Web/diploma-react
-  #    dockerfile: Dockerfile
-  #  ports:
-  #    - 3000:3000
+  web.react:
+    container_name: lde.web.react
+    build: 
+      context: ./Web/diploma-react
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
   identityserver:
     container_name: lde.identityserver
     build:
@@ -81,7 +62,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:5002
-      - MvcUrl=http://localhost:3000
+      - MvcUrl=http://www.alevelwebsite.com
       - CatalogApi=http://www.alevelwebsite.com:5000
       - BasketApi=http://www.alevelwebsite.com:5003
       - OrderApi=http://www.alevelwebsite.com:5004

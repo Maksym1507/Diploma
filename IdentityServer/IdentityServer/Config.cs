@@ -69,8 +69,7 @@ namespace IdentityServer
                     PostLogoutRedirectUris = { $"{configuration["MvcUrl"]}" },
                     AllowedCorsOrigins =
                     {
-                        $"{configuration["MvcUrl"]}",
-                        "http://localhost:3000"
+                        $"{configuration["MvcUrl"]}"
                     },
 
                     AllowedScopes =

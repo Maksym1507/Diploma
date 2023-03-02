@@ -4,22 +4,19 @@ using Microsoft.AspNetCore.Authorization;
 namespace Order.Host.Controllers
 {
     [ApiController]
-    /*[Scope("order.orderbff")]
-    [Authorize(Policy = AuthPolicy.AllowEndUserPolicy)]*/
+    [Scope("order.orderbff")]
+    [Authorize(Policy = AuthPolicy.AllowEndUserPolicy)]
     [Route(ComponentDefaults.DefaultRoute)]
     public class OrderBffController : ControllerBase
     {
-        private readonly ApplicationDbContext _dbContext;
         private readonly ILogger<OrderBffController> _logger;
         private readonly IOrderService _orderService;
 
         public OrderBffController(
             ILogger<OrderBffController> logger,
-            IDbContextWrapper<ApplicationDbContext> dbContextWrapper,
             IOrderService orderService)
         {
             _logger = logger;
-            _dbContext = dbContextWrapper.DbContext;
             _orderService = orderService;
         }
 
