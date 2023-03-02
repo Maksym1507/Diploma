@@ -2,6 +2,8 @@ using Infrastructure.Filters;
 using Microsoft.OpenApi.Models;
 using Infrastructure.Extensions;
 using Order.Host.Configurations;
+using Order.Host.Repositories.Abstractions;
+using Order.Host.Repositories;
 
 namespace Order.Host
 {
@@ -40,7 +42,8 @@ namespace Order.Host
                             TokenUrl = new Uri($"{authority}/connect/token"),
                             Scopes = new Dictionary<string, string>()
                             {
-                                { "order.orderbff", "order.orderbff" }
+                                { "order.orderbff", "order.orderbff" },
+                                { "order.orderitem", "order.orderitem" }
                             }
                         }
                     }
@@ -60,6 +63,8 @@ namespace Order.Host
             builder.Services.AddTransient<IInternalHttpClientService, InternalHttpClientService>();
             builder.Services.AddTransient<IOrderService, OrderService>();
             builder.Services.AddTransient<IOrderRepository, OrderRepository>();
+            builder.Services.AddTransient<IOrderItemService, OrderItemService>();
+            builder.Services.AddTransient<IOrderItemRepository, OrderItemRepository>();
 
             builder.Services.AddDbContextFactory<ApplicationDbContext>(opts => opts.UseNpgsql(configuration["ConnectionString"]));
             builder.Services.AddScoped<IDbContextWrapper<ApplicationDbContext>, DbContextWrapper<ApplicationDbContext>>();

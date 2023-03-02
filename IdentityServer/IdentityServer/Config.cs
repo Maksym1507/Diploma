@@ -45,7 +45,7 @@ namespace IdentityServer
                     Scopes = new List<Scope>
                     {
                         new Scope("order.orderbff"),
-                        new Scope("order.of")
+                        new Scope("order.orderitem")
                     }
                 }
             };
@@ -157,7 +157,7 @@ namespace IdentityServer
 
                     AllowedScopes =
                     {
-                        "order.orderbff"
+                        "order.orderbff", "order.orderitem"
                     }
                 },
             };
