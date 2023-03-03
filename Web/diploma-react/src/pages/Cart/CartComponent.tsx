@@ -1,18 +1,12 @@
 import { observer } from "mobx-react-lite";
-import React, { FC, useEffect } from "react";
+import React, { FC, } from "react";
 import { Button, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { authStore, myCart } from "../../App";
+import { myCart } from "../../App";
 import { config } from "../../constants/api-constants";
 
 const CartComponent: FC = observer(() => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    (async () => {
-      await myCart.prefetchData();
-    })();
-  }, [authStore.user]);
 
   return (
     <>

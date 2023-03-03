@@ -1,8 +1,3 @@
-using Catalog.Host.Data.Entities;
-using Catalog.Host.Models.Dtos;
-using Catalog.Host.Repositories;
-using Moq;
-
 namespace Catalog.UnitTests.Services
 {
     public class CatalogItemServiceTest

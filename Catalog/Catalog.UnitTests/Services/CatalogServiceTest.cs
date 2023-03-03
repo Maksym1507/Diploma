@@ -1,8 +1,4 @@
-﻿using Catalog.Host.Data.Entities;
-using Catalog.Host.Models.Dtos;
-using Catalog.Host.Models.Responses;
-
-namespace Catalog.UnitTests.Services
+﻿namespace Catalog.UnitTests.Services
 {
     public class CatalogServiceTest
     {

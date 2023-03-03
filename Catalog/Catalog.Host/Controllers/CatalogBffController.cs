@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 namespace Catalog.Host.Controllers
 {
     [ApiController]
-
-    // [Authorize(Policy = AuthPolicy.AllowEndUserPolicy)]
+    [AllowAnonymous]
+    [Authorize(Policy = AuthPolicy.AllowEndUserPolicy)]
     [Route(ComponentDefaults.DefaultRoute)]
     public class CatalogBffController : ControllerBase
     {

@@ -21,11 +21,24 @@ namespace Order.Host.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(AddItemResponse<int?>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(int?), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Add(AddOrderRequest request)
         {
-            var result = await _orderItemService.AddAsync(request);
-            return Ok(new AddItemResponse<int?>() { Id = result });
+            var result = await _orderItemService.AddAsync(
+                request.UserId,
+                request.Name,
+                request.LastName,
+                request.BasketItems,
+                request.PhoneNumber,
+                request.Email,
+                request.Country,
+                request.Region,
+                request.City,
+                request.Address,
+                request.Index,
+                request.TotalSum);
+
+            return Ok(result);
         }
 
         [HttpPost("{id}")]

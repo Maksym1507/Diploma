@@ -24,7 +24,7 @@ const CatalogItemList: FC<any> = observer((): ReactElement => {
 
   return (
     <>
-      <div className="container-sm">
+      <div className="container-sm mt-2">
         {homeStore.isLoading ? (
           <div className="container">
             <div className="row min-vh-100">

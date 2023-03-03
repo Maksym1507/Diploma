@@ -11,22 +11,13 @@ const OrderComponent: FC = observer(() => {
   const [orderMessage, setOrderMessage] = useState<number | null>();
 
   useEffect(() => {
-    (async () => {
-      await orderStore.prefetchData();
-    })();
-  }, [authStore.user]);
-
-  useEffect(() => {
     if (orderMessage) {
       if ((orderMessage as number)) {
-        debugger;
         (async () => {
           await myCart.truncateBasket();
         })()
         myCart.totalSum = 0;
-        debugger;
         alert(`Order was confirmed with id = ${orderMessage}`);
-        debugger;
         <Navigate to="/orders" />;
       }
       else {

@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-using Order.Host.Configurations;
+﻿using Order.Host.Models;
 using Order.Host.Models.Dtos;
 
 namespace Order.Host.Services
@@ -14,9 +13,7 @@ namespace Order.Host.Services
             IDbContextWrapper<ApplicationDbContext> dbContextWrapper,
             ILogger<BaseDataService<ApplicationDbContext>> logger,
             IOrderItemRepository orderItemRepository,
-            IInternalHttpClientService httpClient,
             ILogger<OrderItemService> loggerService,
-            IOptions<OrderConfig> config,
             IMapper mapper)
             : base(dbContextWrapper, logger)
         {
@@ -25,15 +22,19 @@ namespace Order.Host.Services
             _mapper = mapper;
         }
 
-        public async Task<int?> AddAsync(AddOrderRequest order)
+        public async Task<int?> AddAsync(string userId, string name, string lastName, BasketItemModel[] basketItems, string phoneNumber, string email, string country, string region, string city, string address, string index, decimal totalSum)
         {
             return await ExecuteSafeAsync(async () =>
             {
-                var addedOrder = _mapper.Map<OrderEntity>(order);
+                var orderId = await _orderItemRepository.AddOrderAsync(userId, name, lastName, phoneNumber, email, country, region, city, address, index, totalSum, basketItems.ToList());
 
-                var orderId = await _orderItemRepository.AddOrderAsync(addedOrder, order.BasketItems.ToList());
+                if (orderId == 0)
+                {
+                    _loggerService.LogError("Failed add order to db");
+                    return 0;
+                }
 
-                _loggerService.LogWarning($"Order with id = {orderId} has been added");
+                _loggerService.LogInformation($"Order with id = {orderId} has been added");
                 return orderId;
             });
         }
@@ -46,7 +47,7 @@ namespace Order.Host.Services
 
                 if (result == null)
                 {
-                    _loggerService.LogWarning($"Not founded catalog item with Id = {id}");
+                    _loggerService.LogWarning($"Not founded order item with Id = {id}");
                     return null;
                 }
 

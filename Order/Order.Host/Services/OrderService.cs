@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using Order.Host.Configurations;
+using Order.Host.Models;
 
 namespace Order.Host.Services
 {
@@ -8,35 +9,33 @@ namespace Order.Host.Services
         private readonly IMapper _mapper;
         private readonly ILogger<OrderService> _loggerService;
         private readonly IOrderRepository _orderRepository;
-        private readonly IInternalHttpClientService _httpClient;
-        private readonly OrderConfig _config;
 
         public OrderService(
             IDbContextWrapper<ApplicationDbContext> dbContextWrapper,
             ILogger<BaseDataService<ApplicationDbContext>> logger,
             IOrderRepository orderRepository,
-            IInternalHttpClientService httpClient,
             ILogger<OrderService> loggerService,
-            IOptions<OrderConfig> config,
             IMapper mapper)
             : base(dbContextWrapper, logger)
         {
             _loggerService = loggerService;
             _orderRepository = orderRepository;
             _mapper = mapper;
-            _httpClient = httpClient;
-            _config = config.Value;
         }
 
-        public async Task<int?> DoOrderAsync(AddOrderRequest order)
+        public async Task<int?> DoOrderAsync(string userId, string name, string lastName, BasketItemModel[] basketItems, string phoneNumber, string email, string country, string region, string city, string address, string index, decimal totalSum)
         {
             return await ExecuteSafeAsync(async () =>
             {
-                var addedOrder = _mapper.Map<OrderEntity>(order);
+                var orderId = await _orderRepository.AddOrderAsync(userId, name, lastName, phoneNumber, email, country, region, city, address, index, totalSum, basketItems.ToList());
 
-                var orderId = await _orderRepository.AddOrderAsync(addedOrder, order.BasketItems.ToList());
+                if (orderId == 0)
+                {
+                    _loggerService.LogError("Failed add order to db");
+                    return 0;
+                }
 
-                _loggerService.LogWarning($"Order with id = {orderId} has been added");
+                _loggerService.LogInformation($"Order with id = {orderId} has been added");
                 return orderId;
             });
         }

@@ -30,9 +30,22 @@ namespace Order.Host.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(int?), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> DoOrder(AddOrderRequest order)
+        public async Task<IActionResult> DoOrder(AddOrderRequest request)
         {
-            var result = await _orderService.DoOrderAsync(order);
+            var result = await _orderService.DoOrderAsync(
+                request.UserId,
+                request.Name,
+                request.LastName,
+                request.BasketItems,
+                request.PhoneNumber,
+                request.Email,
+                request.Country,
+                request.Region,
+                request.City,
+                request.Address,
+                request.Index,
+                request.TotalSum);
+
             return Ok(result);
         }
     }

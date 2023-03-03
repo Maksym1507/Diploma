@@ -14,9 +14,11 @@
         public BasketItemModel[] BasketItems { get; set; } = null!;
 
         [Required]
+        [Phone]
         public string PhoneNumber { get; set; } = null!;
 
         [Required]
+        [EmailAddress(ErrorMessage = "Incorrent email format")]
         public string Email { get; set; } = null!;
 
         [Required]

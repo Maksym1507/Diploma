@@ -12,11 +12,23 @@ namespace Order.Host.Repositories
             _dbContext = dbContextWrapper.DbContext;
         }
 
-        public async Task<int?> AddOrderAsync(OrderEntity order, List<BasketItemModel> items)
+        public async Task<int?> AddOrderAsync(string userId, string name, string lastName, string phoneNumber, string email, string country, string region, string city, string address, string index, decimal totalSum, List<BasketItemModel> items)
         {
-            var a = _dbContext.Orders.Count();
-            var b = _dbContext.OrderDetails.Count();
-            var result = await _dbContext.AddAsync(order);
+            var result = await _dbContext.AddAsync(new OrderEntity
+            {
+                UserId = userId,
+                Name = name,
+                LastName = lastName,
+                PhoneNumber = phoneNumber,
+                Email = email,
+                Country = country,
+                Region = region,
+                City = city,
+                Address = address,
+                Index = index,
+                CreatedAt = DateTime.UtcNow.Date,
+                TotalSum = totalSum
+            });
 
             await _dbContext.OrderDetails.AddRangeAsync(items.Select(s => new OrderDetailsEntity()
             {

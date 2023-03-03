@@ -1,9 +1,9 @@
-import React from "react";
+import { observer } from "mobx-react-lite";
+import React, { FC } from "react";
 import { Accordion, Spinner } from "react-bootstrap";
 import { orderStore } from "../../App";
-import { config } from "../../constants/api-constants";
 
-const OrderHistoryComponent = () => {
+const OrderHistoryComponent: FC = observer(() => {
   return (
     <>
       <div className="mb-3">
@@ -19,7 +19,7 @@ const OrderHistoryComponent = () => {
           <>
             <h2>My orders</h2>
             {orderStore.orders.length ? (
-              (orderStore.orders)
+              (orderStore.orders).slice()
                 .sort((a, b) => {
                   return b.id - a.id;
                 })
@@ -35,14 +35,7 @@ const OrderHistoryComponent = () => {
                             <p className="mb-0">Order price: {order.totalSum}₴</p>
                           </div>
                           <div className="col-sm-3 ms-3 text-end">
-                            <img
-                              key={index}
-                              width={50}
-                              height={50}
-                              src={`${config.cdnHost}/assets/images/3.png`}
-                              alt={order.city}
-                              className="me-3"
-                            />
+                            {" "}
                           </div>
                         </Accordion.Header>
                         <Accordion.Body className="w-100">
@@ -55,41 +48,6 @@ const OrderHistoryComponent = () => {
                                       <h5 className="text-muted mb-0">Order details</h5>
                                     </div>
                                     <div className="card-body pe-4 ps-4 pb-1">
-                                      {/* {order.orderProducts.map(
-                                (orderProduct, index) => (
-                                  <div
-                                    key={index}
-                                    className="card shadow-0 border mb-2"
-                                  >
-                                    <div className="card-body">
-                                      <div className="row">
-                                        <div className="col-md-2">
-                                          <img
-                                            src={orderProduct.product.pictureUrl}
-                                            className="img-fluid"
-                                            alt="product"
-                                          />
-                                        </div>
-                                        <div className="col-md-4 text-center d-flex justify-content-center align-items-center">
-                                          <p className="text-muted mb-0">
-                                            {orderProduct.product.title}
-                                          </p>
-                                        </div>
-                                        <div className="col-md-3 text-center d-flex justify-content-center align-items-center">
-                                          <p className="text-muted mb-0 small">
-                                            Qty: {orderProduct.count}
-                                          </p>
-                                        </div>
-                                        <div className="col-md-3 text-center d-flex justify-content-center align-items-center">
-                                          <p className="text-muted mb-0 small">
-                                            {orderProduct.count * orderProduct.product.price} uah
-                                          </p>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                )
-                              )} */}
                                       <div className="d-flex justify-content-between pt-1 ps-1">
                                         <p className="text-muted mb-0 text-start">
                                           Country: {order.country}
@@ -152,6 +110,6 @@ const OrderHistoryComponent = () => {
       </div>
     </>
   );
-};
+});
 
 export default OrderHistoryComponent;

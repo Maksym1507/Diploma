@@ -20,7 +20,7 @@ namespace Basket.Host.Services
 
             if (result == null)
             {
-                _logger.LogWarning($"Not founded basket with user id = {userId}");
+                _logger.LogError($"Not founded basket with user id = {userId}");
                 result = new BasketModel();
             }
 
@@ -29,6 +29,9 @@ namespace Basket.Host.Services
             if (basketItem != null)
             {
                 basketItem.Count++;
+                result.TotalSum += product.Price;
+                await _cacheService.AddOrUpdateAsync(userId, result);
+                _logger.LogInformation($"Item's count with id = {product.Id} was updated");
             }
             else
             {
@@ -40,11 +43,11 @@ namespace Basket.Host.Services
                     PictureUrl = product.PictureUrl,
                     Count = 1
                 });
-            }
 
-            result.TotalSum += product.Price;
-            await _cacheService.AddOrUpdateAsync(userId, result);
-            _logger.LogInformation($"Item with id = {product.Id} was added to basket");
+                result.TotalSum += product.Price;
+                await _cacheService.AddOrUpdateAsync(userId, result);
+                _logger.LogInformation($"Item with id = {product.Id} was added to basket");
+            }
 
             return true;
         }
@@ -55,7 +58,7 @@ namespace Basket.Host.Services
 
             if (result == null)
             {
-                _logger.LogWarning($"Not founded basket with user id = {userId}");
+                _logger.LogError($"Not founded basket with user id = {userId}");
                 result = new BasketModel();
             }
 
@@ -68,7 +71,7 @@ namespace Basket.Host.Services
 
             if (result == null)
             {
-                _logger.LogWarning($"Not founded basket with user id = {userId}");
+                _logger.LogError($"Not founded basket with user id = {userId}");
                 return false;
             }
 
@@ -85,6 +88,7 @@ namespace Basket.Host.Services
                 basketItem.Count--;
                 result.TotalSum -= basketItem.Price;
                 await _cacheService.AddOrUpdateAsync(userId, result);
+                _logger.LogInformation($"Item's count with id = {basketItem.Id} was updated");
                 return true;
             }
 

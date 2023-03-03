@@ -20,7 +20,6 @@ const User: FC<any> = observer((): ReactElement => {
   }, [id]);
 
   if (homeStore.singleCatalogItem) {
-    debugger;
     if (homeStore.singleCatalogItem.id) {
       return (
         <>
