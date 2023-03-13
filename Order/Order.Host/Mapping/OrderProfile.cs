@@ -7,7 +7,7 @@ namespace Order.Host.Mapping
     {
         public OrderProfile()
         {
-            CreateMap<AddOrderRequest, OrderEntity>()
+            CreateMap<AddOrderForApiRequest, OrderEntity>()
                 .AfterMap((source, destination) => destination.CreatedAt = DateTime.UtcNow.Date);
 
             CreateMap<BasketItemRequest, OrderDetailsEntity>();

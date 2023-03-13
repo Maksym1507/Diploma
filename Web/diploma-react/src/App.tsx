@@ -43,7 +43,7 @@ const App: FC = observer(() => {
           :
           {
             <>
-              <Route path="orders" element={<Navigate replace to="/product" />} />
+              <Route path="cart" element={<Navigate replace to="/product" />} />
             </>
           }
         </Route>

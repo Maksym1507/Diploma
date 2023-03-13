@@ -36,15 +36,13 @@ namespace Order.Host.Controllers
                 request.UserId,
                 request.Name,
                 request.LastName,
-                request.BasketItems,
                 request.PhoneNumber,
                 request.Email,
                 request.Country,
                 request.Region,
                 request.City,
                 request.Address,
-                request.Index,
-                request.TotalSum);
+                request.Index);
 
             return Ok(result);
         }

@@ -12,7 +12,7 @@ const OrderComponent: FC = observer(() => {
 
   useEffect(() => {
     if (orderMessage) {
-      if ((orderMessage as number)) {
+      if ((orderMessage as number) !== 0) {
         (async () => {
           await myCart.truncateBasket();
         })()
@@ -54,7 +54,6 @@ const OrderComponent: FC = observer(() => {
         await orderStore.doOrder(
           {
             userId: authStore.user?.profile.sub,
-            basketItems: myCart.items,
             name: formData.name,
             lastName: formData.lastName,
             phoneNumber: formData.phoneNumber,
@@ -63,8 +62,7 @@ const OrderComponent: FC = observer(() => {
             region: formData.region,
             city: formData.city,
             address: formData.address,
-            index: formData.index,
-            totalSum: myCart.totalSum
+            index: formData.index
           } as OrderModel));
     })();
   };

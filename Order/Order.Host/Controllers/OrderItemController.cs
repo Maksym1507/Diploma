@@ -22,7 +22,7 @@ namespace Order.Host.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(int?), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Add(AddOrderRequest request)
+        public async Task<IActionResult> Add(AddOrderForApiRequest request)
         {
             var result = await _orderItemService.AddAsync(
                 request.UserId,

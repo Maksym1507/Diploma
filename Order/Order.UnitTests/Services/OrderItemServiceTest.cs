@@ -1,9 +1,4 @@
-﻿using Moq;
-using Order.Host.Data.Entities;
-using Order.Host.Models;
-using Order.Host.Models.Dtos;
-
-namespace Order.UnitTests.Services
+﻿namespace Order.UnitTests.Services
 {
     public class OrderItemServiceTest
     {

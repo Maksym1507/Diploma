@@ -1,6 +1,6 @@
 ﻿namespace Order.Host.Models.Requests
 {
-    public class AddOrderRequest
+    public class AddOrderForApiRequest
     {
         [Required]
         public string UserId { get; set; } = null!;
@@ -10,6 +10,8 @@
 
         [Required]
         public string LastName { get; set; } = null!;
+
+        public BasketItemModel[] BasketItems { get; set; } = null!;
 
         [Required]
         [Phone]
@@ -33,5 +35,7 @@
 
         [Required]
         public string Index { get; set; } = null!;
+
+        public decimal TotalSum { get; set; }
     }
 }

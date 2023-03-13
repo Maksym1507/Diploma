@@ -10,3 +10,6 @@ global using Order.Host.Data;
 global using Order.Host.Repositories.Abstractions;
 global using Order.Host.Services;
 global using Order.Host.Services.Abstractions;
+global using Order.Host.Data.Entities;
+global using Order.Host.Models;
+global using Order.Host.Models.Dtos;

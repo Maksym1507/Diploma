@@ -4,10 +4,6 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link, Outlet } from "react-router-dom";
 import { authStore, myCart, orderStore } from "../../App";
 
-function getTotoalCountOfBasketItems() {
-  return myCart.items.reduce((accu, item) => accu + item.count, 0);
-}
-
 const NavBarComponent: FC = observer(() => {
   return (
     <>
@@ -35,7 +31,7 @@ const NavBarComponent: FC = observer(() => {
                   width={20}
                   className="cursor-pointer"
                 />
-                <span className="ms-1">{getTotoalCountOfBasketItems()}</span>
+                <span className="ms-1">{myCart.getTotalCountOfBasketItems()}</span>
               </Nav.Link>
               }
               {authStore.user && (

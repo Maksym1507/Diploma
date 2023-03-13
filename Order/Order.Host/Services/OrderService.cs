@@ -9,25 +9,45 @@ namespace Order.Host.Services
         private readonly IMapper _mapper;
         private readonly ILogger<OrderService> _loggerService;
         private readonly IOrderRepository _orderRepository;
+        private readonly IInternalHttpClientService _httpClient;
+        private readonly OrderConfig _config;
 
         public OrderService(
             IDbContextWrapper<ApplicationDbContext> dbContextWrapper,
             ILogger<BaseDataService<ApplicationDbContext>> logger,
             IOrderRepository orderRepository,
             ILogger<OrderService> loggerService,
-            IMapper mapper)
+            IMapper mapper,
+            IInternalHttpClientService httpClient,
+            IOptions<OrderConfig> config)
             : base(dbContextWrapper, logger)
         {
             _loggerService = loggerService;
             _orderRepository = orderRepository;
             _mapper = mapper;
+            _httpClient = httpClient;
+            _config = config.Value;
         }
 
-        public async Task<int?> DoOrderAsync(string userId, string name, string lastName, BasketItemModel[] basketItems, string phoneNumber, string email, string country, string region, string city, string address, string index, decimal totalSum)
+        public async Task<int?> DoOrderAsync(string userId, string name, string lastName, string phoneNumber, string email, string country, string region, string city, string address, string index)
         {
             return await ExecuteSafeAsync(async () =>
             {
-                var orderId = await _orderRepository.AddOrderAsync(userId, name, lastName, phoneNumber, email, country, region, city, address, index, totalSum, basketItems.ToList());
+                var basket = await _httpClient.SendAsync<BasketModel, GetBasketRequest>(
+                $"{_config.BasketUrl}/get",
+                HttpMethod.Post,
+                new GetBasketRequest
+                {
+                    UserId = userId
+                });
+
+                if (basket.BasketItems.Count == 0)
+                {
+                    _loggerService.LogError($"Basket with id = {userId} is empty");
+                    return 0;
+                }
+
+                var orderId = await _orderRepository.AddOrderAsync(userId, name, lastName, phoneNumber, email, country, region, city, address, index, basket.TotalSum, basket.BasketItems);
 
                 if (orderId == 0)
                 {

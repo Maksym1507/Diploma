@@ -1,8 +1,5 @@
-import BasketItemModel from "./basketInfo";
-
 interface OrderModel {
   userId: string;
-  basketItems: BasketItemModel[]
   name: string;
   lastName: string;
   phoneNumber: string;
@@ -12,7 +9,6 @@ interface OrderModel {
   city: string;
   address: string;
   index: string;
-  totalSum: number;
 };
 
 export default OrderModel;

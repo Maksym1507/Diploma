@@ -7,6 +7,7 @@ import { ProductToBasketModel } from "../models/productToBasketModel";
 export class CartStore {
   items: BasketItemModel[] = [];
   totalSum: number = 0;
+  totalCount: number = 0;
   isLoading = false;
   constructor() {
     makeAutoObservable(this);
@@ -26,6 +27,10 @@ export class CartStore {
     }
     this.isLoading = false;
   };
+
+  getTotalCountOfBasketItems() {
+    return this.items.reduce((ac, item) => ac + item.count, 0);
+  }
 
   addUpdateItem = async (item: ProductToBasketModel) => {
     await cartApi.addItemForBasket({ id: authStore.user?.profile.sub!, product: { id: item.id, title: item.title, price: item.price, pictureUrl: item.pictureUrl } });

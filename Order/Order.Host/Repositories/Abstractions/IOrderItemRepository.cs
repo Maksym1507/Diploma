@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Order.Host.Models;
+﻿using Order.Host.Models;
 
 namespace Order.Host.Repositories.Abstractions
 {
