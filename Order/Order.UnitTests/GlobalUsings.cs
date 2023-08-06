@@ -1,0 +1,15 @@
+global using FluentAssertions;
+global using Infrastructure.Services.Abstractions;
+global using Microsoft.Extensions.Logging;
+global using Moq;
+global using Xunit;
+global using Microsoft.Extensions.Options;
+global using AutoMapper;
+global using Microsoft.EntityFrameworkCore.Storage;
+global using Order.Host.Data;
+global using Order.Host.Repositories.Abstractions;
+global using Order.Host.Services;
+global using Order.Host.Services.Abstractions;
+global using Order.Host.Data.Entities;
+global using Order.Host.Models;
+global using Order.Host.Models.Dtos;
